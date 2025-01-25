@@ -2,7 +2,9 @@
 Before proceeding you will need to install cmake on your machine
 ## Building:
 Build it with cmake as usual:
-- `mkdir build && cd build && cmake .. && cmake --build .`
+``` 
+mkdir build && cd build && cmake .. && cmake --build .
+```
 
 In the "build" folder you will find an executable, run it with these options:
 

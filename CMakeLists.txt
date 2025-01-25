@@ -3,11 +3,11 @@ project(shovel-sweeper)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SFML_INCLUDE_DIR "C:/Users/tsvet/SFML-2.6.1/include")
-set(SFML_LIBRARY_DIR "C:/Users/tsvet/SFML-2.6.1/lib")
-
 set(PROJECT_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 set(PROJECT_SRC_DIR "${CMAKE_SOURCE_DIR}/src")
+
+set(SFML_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/SFML-2.6.1/include")
+set(SFML_LIBRARY_DIR "${CMAKE_SOURCE_DIR}/SFML-2.6.1/lib")
 
 add_executable(${PROJECT_NAME}
         ${PROJECT_SRC_DIR}/main.cpp
