@@ -74,6 +74,8 @@ public:
 
 	void click(int mouse_pos_x, int mouse_pos_y);
 
+	void hold(int mouse_pos_x, int mouse_pos_y);
+
 	void flag(int mouse_pos_x, int mouse_pos_y);
 
 	void generate_map(int rows, int cols, int mines, const std::function<int(int)>& random_generator);

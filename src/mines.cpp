@@ -186,6 +186,15 @@ namespace ms {
 		}
 	}
 
+	void field::hold(const int mouse_pos_x, const int mouse_pos_y) {
+		const int c=(mouse_pos_x-field_x)/tile_width;
+		const int r=(mouse_pos_y-field_y)/tile_height;
+
+		if (c < 0 || r < 0 || c >= grid[0].size() || r >= grid.size() || flagged[r][c] || used[r][c]) return;
+
+		tile.draw_open(field_x+c*tile_width,field_y+r*tile_height,0);
+	}
+
 	void field::flag(const int mouse_pos_x, const int mouse_pos_y) {
 		const int x=(mouse_pos_x-field_x)/tile_width;
 		const int y=(mouse_pos_y-field_y)/tile_height;

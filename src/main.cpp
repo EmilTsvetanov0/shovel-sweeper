@@ -76,17 +76,17 @@ int main(int argc, char *argv[]){
 	sf::Event event;
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed) {
 				window.close();
-			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+			} else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+				std::cout << "Left button released!!!" << std::endl << std::endl << std::endl;
 				int mouse_x = event.mouseButton.x;
 				int mouse_y = event.mouseButton.y;
 				playground.click(mouse_x, mouse_y);
 				window.clear();
 				playground.draw();
 				window.display();
-			}
-			else if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right) {
+			} else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right) {
 				int mouse_x = event.mouseButton.x;
 				int mouse_y = event.mouseButton.y;
 				playground.flag(mouse_x, mouse_y);
@@ -95,11 +95,18 @@ int main(int argc, char *argv[]){
 				window.display();
 			}
 		}
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+			int mouse_x = mouse_position.x;
+			int mouse_y = mouse_position.y;
+
+			window.clear();
+			playground.draw();
+			playground.hold(mouse_x, mouse_y);
+			window.display();
+		}
 	}
 
 	return 0;
 }
-/*
-g++ -c main.cpp -IC:\Users\tsvet\SFML-2.6.1\include
-g++ main.o -o main -LC:\Users\tsvet\SFML-2.6.1\lib -lsfml-graphics -lsfml-window -lsfml-system -lopengl32 -lwinmm -lgdi32
-*/
