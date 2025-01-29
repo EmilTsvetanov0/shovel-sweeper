@@ -111,8 +111,8 @@ namespace ms {
 		}
 	}
 
-	field::field(sf::RenderWindow &window, const int field_x, const int field_y, std::string source_folder_init):
-		tile(window,std::move(source_folder_init)),
+	field::field(sf::RenderWindow &window, const int field_x, const int field_y, std::string base_path_init):
+		tile(window,std::move(base_path_init)),
 		field_x(field_x),
 		field_y(field_y),
 		window(window)
@@ -125,6 +125,7 @@ namespace ms {
 	void field::clear(const size_t field_width, const size_t field_height) {
 		grid.resize(field_height, std::vector<size_t>(field_width,0));
 		used.resize(field_height, std::vector<bool>(field_width,false));
+		flagged.resize(field_height, std::vector<bool>(field_width,false));
 	}
 
 	std::pair<int,int> field::get_dimensions() {
@@ -213,9 +214,7 @@ namespace ms {
 
 	void field::generate_map(const int rows, const int cols, const int mines, const std::function<int(int)>& random_generator) {
 		if(rows <= 0 || cols <= 0 || mines <= 0 || mines > rows*cols) throw std::invalid_argument("Invalid input");
-		grid.resize(rows, std::vector<size_t>(cols, 0));
-		used.resize(rows, std::vector<bool>(cols, false));
-		flagged.resize(rows, std::vector<bool>(cols, false));
+		clear(cols, rows);
 		std::cout<<"tile_width: "<<tile_width<<std::endl;
 		std::cout<<"tile_height: "<<tile_height<<std::endl;
 		int placed = 0;
