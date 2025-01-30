@@ -47,7 +47,6 @@ namespace ms {
 		try {
 			if(value!=current_tile) {
 				base_path[base_path.size()-5] = '0'+value;
-				std::cout<<"Opening tile: "<<base_path<<std::endl;
 				if(!texture.loadFromFile(base_path)) throw std::exception();
 				square.setTexture(texture);
 				square.setScale(scale_x, scale_y);
@@ -69,11 +68,9 @@ namespace ms {
 			if(current_tile!=51) {
 
 				base_path[base_path.size()-5] = 'c';
-				std::cout<<"Closed tile drawing: "<<base_path<<std::endl;
 
 				if(!texture.loadFromFile(base_path)) throw std::exception();
 
-				std::cout<<"Setting texture\n";
 				square.setTexture(texture);
 				square.setScale(scale_x, scale_y);
 				current_tile=51;
@@ -215,8 +212,6 @@ namespace ms {
 	void field::generate_map(const int rows, const int cols, const int mines, const std::function<int(int)>& random_generator) {
 		if(rows <= 0 || cols <= 0 || mines <= 0 || mines > rows*cols) throw std::invalid_argument("Invalid input");
 		clear(cols, rows);
-		std::cout<<"tile_width: "<<tile_width<<std::endl;
-		std::cout<<"tile_height: "<<tile_height<<std::endl;
 		int placed = 0;
 		while (placed < mines) {
 			const int cell = random_generator(rows * cols);

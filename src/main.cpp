@@ -79,7 +79,6 @@ int main(int argc, char *argv[]){
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			} else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
-				std::cout << "Left button released!!!" << std::endl << std::endl << std::endl;
 				int mouse_x = event.mouseButton.x;
 				int mouse_y = event.mouseButton.y;
 				playground.click(mouse_x, mouse_y);
