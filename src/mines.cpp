@@ -210,7 +210,7 @@ namespace ms {
 	}
 
 	void field::generate_map(const int rows, const int cols, const int mines, const std::function<int(int)>& random_generator) {
-		if(rows <= 0 || cols <= 0 || mines <= 0 || mines > rows*cols) throw std::invalid_argument("Invalid input");
+		if(rows <= 0 || cols <= 0 || mines < 0 || mines > rows*cols) throw std::invalid_argument("Invalid input");
 		clear(cols, rows);
 		int placed = 0;
 		while (placed < mines) {
