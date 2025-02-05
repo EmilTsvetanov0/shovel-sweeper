@@ -61,7 +61,7 @@ int main(int argc, char *argv[]){
 		return static_cast<int>(generator()%x);
 	};
 
-	ms::field playground(window,20,20,"../resources/Minesweeper_LAZARUS_21x21_0.png");
+	ms::field playground(window,20,20,"resources/Minesweeper_LAZARUS_21x21_0.png");
 	playground.generate_map(height,width,mines,rd);
 	playground.set_scale(36.0f/21.0f, 36.0f/21.0f);
 	playground.draw();
