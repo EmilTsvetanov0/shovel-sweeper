@@ -62,11 +62,47 @@ int main(int argc, char *argv[]){
 	};
 
 	ms::field playground(window,20,20,"resources/Minesweeper_LAZARUS_21x21_0.png");
-	playground.generate_map(height,width,mines,rd);
+	playground.generate_map(height,width,0,rd);
 	playground.set_scale(36.0f/21.0f, 36.0f/21.0f);
 	playground.draw();
 	window.display();
 	sf::Event event;
+	bool wait = true;
+	while (wait && window.isOpen()) {
+		while (wait && window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			} else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+				int mouse_x = event.mouseButton.x;
+				int mouse_y = event.mouseButton.y;
+				if(playground.generate_map(height,width,mines,rd,mouse_x,mouse_y)) {
+					playground.click(mouse_x, mouse_y);
+					window.clear();
+					playground.draw();
+					window.display();
+					wait=false;
+				}
+			} else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right) {
+				int mouse_x = event.mouseButton.x;
+				int mouse_y = event.mouseButton.y;
+				playground.flag(mouse_x, mouse_y);
+				window.clear();
+				playground.draw();
+				window.display();
+			}
+		}
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+			int mouse_x = mouse_position.x;
+			int mouse_y = mouse_position.y;
+
+			window.clear();
+			playground.draw();
+			playground.hold(mouse_x, mouse_y);
+			window.display();
+		}
+	}
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {

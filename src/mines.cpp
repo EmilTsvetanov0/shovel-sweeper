@@ -209,17 +209,34 @@ namespace ms {
 		}
 	}
 
-	void field::generate_map(const int rows, const int cols, const int mines, const std::function<int(int)>& random_generator) {
+	bool field::generate_map(const int rows, const int cols, const int mines, const std::function<int(int)>& random_generator, const int mouse_pos_x, const int mouse_pos_y) {
 		if(rows <= 0 || cols <= 0 || mines < 0 || mines > rows*cols) throw std::invalid_argument("Invalid input");
 		clear(cols, rows);
-		int placed = 0;
-		while (placed < mines) {
-			const int cell = random_generator(rows * cols);
-			const size_t r = cell / cols;
-			const size_t c = cell % cols;
-			if (grid[r][c] != 9) {
-				grid[r][c] = 9;
-				++placed;
+
+		if(mouse_pos_x>-1 && mouse_pos_y>-1) {
+			const int mouse_c=(mouse_pos_x-field_x)/tile_width;
+			const int mouse_r=(mouse_pos_y-field_y)/tile_height;
+			if (mouse_c < 0 || mouse_r < 0 || mouse_c >= cols || mouse_r >= rows) return false;
+			grid[mouse_r][mouse_c]=9;
+			int placed = 0;
+			while (placed < mines) {
+				const int cell = random_generator(rows * cols);
+				const size_t r = cell / cols;
+				if (const size_t c = cell % cols; grid[r][c] != 9) {
+					grid[r][c] = 9;
+					++placed;
+				}
+			}
+			grid[mouse_r][mouse_c]=0;
+		} else {
+			int placed = 0;
+			while (placed < mines) {
+				const int cell = random_generator(rows * cols);
+				const size_t r = cell / cols;
+				if (const size_t c = cell % cols; grid[r][c] != 9) {
+					grid[r][c] = 9;
+					++placed;
+				}
 			}
 		}
 
@@ -236,6 +253,7 @@ namespace ms {
 				}
 			}
 		}
+		return true;
 	}
 
 	void field::draw() {

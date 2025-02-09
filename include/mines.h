@@ -113,7 +113,7 @@ public:
 	void flag(int mouse_pos_x, int mouse_pos_y);
 
 	// Cleares the map and generating a random map
-	void generate_map(int rows, int cols, int mines, const std::function<int(int)>& random_generator);
+	bool generate_map(int rows, int cols, int mines, const std::function<int(int)>& random_generator, const int mouse_pos_x=-1, const int mouse_pos_y=-1);
 
 	// Renders current state of the field
 	void draw();
