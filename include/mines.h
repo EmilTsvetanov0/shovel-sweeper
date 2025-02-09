@@ -12,8 +12,7 @@
 #include <vector>
 #include <iostream>
 #include <functional>
-#include <SFML\Graphics.hpp>
-#include <SFML\Window.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace ms {
 struct tile_template {

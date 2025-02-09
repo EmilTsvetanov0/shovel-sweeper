@@ -1,12 +1,12 @@
 #include <iostream>
 #include <random>
-#include <SFML\Graphics.hpp>
-#include <SFML\Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <ctime>
-#include "../include/mines.h"
+#include "mines.h"
 
 void printUsage() {
-	std::cout << "Использование: shovel-sweeper.exe -h <height> -w <width> -m <mines> [--auto-scale]\n"
+	std::cout << "Использование: shovel-sweeper.exe -h <height> -w <width> -m <mines>\n"
 			  << "Параметры:\n"
 			  << "  -h <height>       Высота поля\n"
 			  << "  -w <width>        Ширина поля\n"
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]){
 		printUsage();
 		return 1;
 	}
-	if( width <= 0 || height <= 0 || mines < 0 || mines > width * height ) {
+	if( width <= 0 || height <= 0 || mines < 0 || mines >= width * height ) {
 		std::cerr << "Ошибка: один из параметров либо отсутствует, либо принимает недопустимое значение.";
 		printUsage();
 		return 1;
